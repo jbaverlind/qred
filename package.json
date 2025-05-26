@@ -7,8 +7,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit --listFiles",
-    "test": "vitest test --test-timeout=50000",
-    "dev": "nodemon src/app.ts"
+    "test": "vitest test --test-timeout=50000 --hookTimeout=50000",
+    "dev": "nodemon src/server.ts"
   },
   "keywords": [],
   "author": "",

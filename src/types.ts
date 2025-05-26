@@ -24,7 +24,7 @@ export const CompanySummarySchema = z.object({
   name: z.string(),
   creditLimit: z.number(),
   usedCredit: z.number(),
-  createdAt: z.date().transform((val) => val.toISOString()),
+  createdAt: z.string(),
   status: z.string(),
   transactionsCount: z.number(),
   latestTransactions: z.array(TransactionSchema),
