@@ -1,5 +1,5 @@
 import { transactionRepo, companyRepo } from '../repositories';
-import { CompanySummarySchema } from '../types';
+import { CompanySchema, CompanySummarySchema } from '../types';
 import { z } from 'zod';
 
 export const companyService = {
@@ -22,5 +22,9 @@ export const companyService = {
     );
     const parsed = z.array(CompanySummarySchema).parse(companiesSummary);
     return parsed;
+  },
+  activateCompanyCard: async ({ companyId }: { companyId: string }) => {
+    const company = await companyRepo.activateCompanyCard({ companyId });
+    return company ? CompanySchema.parse(company) : company;
   },
 };

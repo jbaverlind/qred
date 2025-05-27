@@ -35,7 +35,7 @@ export const createApp = () => {
   v1.get('/companies/:companyId/transactions', async (c) => {
     try {
       const { companyId } = c.req.param();
-      const transactions = await await transactionService.getTransactions({
+      const transactions = await transactionService.getTransactions({
         companyId,
       });
       const parsedTransactions = z.array(TransactionSchema).parse(transactions);
@@ -46,21 +46,21 @@ export const createApp = () => {
     }
   });
 
-  // v1.patch('/companies/:companyId/activate', async (c) => {
-  //   try {
-  //     const { companyId } = c.req.param();
-  //     const companyData = await companyService.activateCompanyCard({ companyId });
+  v1.patch('/companies/:companyId/activate', async (c) => {
+    try {
+      const { companyId } = c.req.param();
+      const company = await companyService.activateCompanyCard({ companyId });
 
-  //     if (!companyData) {
-  //       return c.json({ error: 'Company not found' }, 404);
-  //     }
-  //     const company = CompanySchema.parse(companyData);
-  //     return c.json({ company }, 200);
-  //   } catch (error) {
-  //     logger.error(`Failed to activate company, ${error}`);
-  //     return c.text('Internal Server Error', 500);
-  //   }
-  // });
+      if (!company) {
+        return c.json({ error: 'Company not found' }, 404);
+      }
+
+      return c.json({ company }, 200);
+    } catch (error) {
+      logger.error(`Failed to activate company, ${error}`);
+      return c.text('Internal Server Error', 500);
+    }
+  });
 
   //if i had more time i would have stored it in s3 and redirect to s3 url
   app.use('/logo.jpg', serveStatic({ path: './public/logo.jpg' }));
