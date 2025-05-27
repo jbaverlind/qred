@@ -25,7 +25,11 @@ export const transactionRepo = {
     });
     return transactions;
   },
-  getTransactionCount: async ({ companyId }: { companyId: string }) => {
+  getTransactionCount: async ({
+    companyId,
+  }: {
+    companyId: string;
+  }): Promise<number> => {
     const transactionsCount = await pool.query(
       `SELECT COUNT(*) as t_count from transactions where company_id = $1`,
       [companyId],
